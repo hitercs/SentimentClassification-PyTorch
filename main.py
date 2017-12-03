@@ -16,11 +16,12 @@ def main():
     '''     pre-train word embedding init    '''
     dataset = Dataset(args.data)
     model.word_embed.weight = nn.Parameter(torch.from_numpy(dataset.get_wordembedding()))
+    optimizer = optim.SGD(model.parameters(), lr=settings.lr, weight_decay=1e-5)
+    criteria = nn.CrossEntropyLoss()
     if torch.cuda.is_available():
         torch.cuda.manual_seed(settings.seed)
         model.cuda()
-    optimizer = optim.SGD(model.parameters(), lr=settings.lr, weight_decay=1e-5)
-    criteria = nn.CrossEntropyLoss()
+        criteria.cuda()
     best_dev_acc = 0.0
     best_test_acc = 0.0
 
@@ -83,8 +84,8 @@ if __name__  == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-data", "--data", type=str, default=r"./data/")
     parser.add_argument("-model", "--model-dir", type=str, default=r"./model/")
-    parser.add_argument("-cuda", "--cuda", type=bool, default=True)
+    parser.add_argument("-cuda", "--cuda", type=bool, default=False)
     args = parser.parse_args()
-    if not os.path.exists(args.model):
-        os.mkdir(args.model)
+    if not os.path.exists(args.model_dir):
+        os.mkdir(args.model_dir)
     main()
