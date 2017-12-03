@@ -103,6 +103,5 @@ venv.bak/
 # mypy
 .mypy_cache/
 model/
-model_Pretrain/
 *.pyc 
-
+data/glove.6B.100d.txt

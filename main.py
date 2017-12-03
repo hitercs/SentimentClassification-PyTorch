@@ -85,4 +85,6 @@ if __name__  == "__main__":
     parser.add_argument("-model", "--model-dir", type=str, default=r"./model/")
     parser.add_argument("-cuda", "--cuda", type=bool, default=True)
     args = parser.parse_args()
+    if not os.path.exists(args.model):
+        os.mkdir(args.model)
     main()
