@@ -37,11 +37,11 @@ def main():
                 best_test_acc = test_acc
                 torch.save(model, os.path.join(args.model_dir, "sa_{}.model".format(best_dev_acc)))
             with open(os.path.join(args.model_dir, "log.txt"), "a") as logger:
-                logger.write("epoch: {}, dev acc: {}, test acc: {}, " \
-                  "batch loss: {}, best dev acc:{}, best test acc:{}\n".format(i*settings.batch_size/float(dataset.size),
+                logger.write("epoch: {:.2f}, dev acc: {:.2f}, test acc: {:.2f}, " \
+                  "batch loss: {:.2f}, best dev acc:{:.2f}, best test acc:{:.2f}\n".format(i*settings.batch_size/float(dataset.size),
                    dev_acc, test_acc, loss.cpu().numpy()[0], best_dev_acc, best_test_acc))
-            print "epoch: {}, dev acc: {}, test acc: {}, " \
-                  "batch loss: {}, best dev acc:{}, best test acc:{}".format(i*settings.batch_size/float(dataset.size),
+            print "epoch: {:.2f}, dev acc: {:.2f}, test acc: {:.2f}, " \
+                  "batch loss: {:.2f}, best dev acc:{:.2f}, best test acc:{:.2f}".format(i*settings.batch_size/float(dataset.size),
                    dev_acc, test_acc, loss.cpu().numpy()[0], best_dev_acc, best_test_acc)
 
 def var_to_cuda(batch_data):
